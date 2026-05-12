@@ -1,9 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export interface MapObject {
   name: string;
-  description?: string;
+  description: string;
   lat: number;
   lon: number;
 }
@@ -16,16 +15,18 @@ const initialState: MapState = {
   objects: JSON.parse(localStorage.getItem("mapObjects") || "[]"),
 };
 
-export const mapSlice = createSlice({
+const mapSlice = createSlice({
   name: "map",
+
   initialState,
+
   reducers: {
     addObject: (state, action: PayloadAction<MapObject>) => {
       state.objects.push(action.payload);
-      localStorage.setItem("mapObjects", JSON.stringify(state.objects));
     },
   },
 });
 
 export const { addObject } = mapSlice.actions;
+
 export default mapSlice.reducer;
